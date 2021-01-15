@@ -26,11 +26,11 @@ hibernate:
 elasticsearch.httpHosts: '"http://localhost:9200,http://127.0.0.2:9200"'
 redis.uri: redis://localhost
 jpa.default.properties.hibernate.hbm2ddl.auto: update
-# cassandra:
-#  default:
-#    clusterName: '"myCluster"'
-#    contactPoint: '"localhost"'
-#    port: 9042
-#    maxSchemaAgreementWaitSeconds: 20
-#    ssl: true
-# rabbitmq.uri: amqp://localhost:5672
+ cassandra:
+  default:
+    clusterName: '"myCluster"'
+    contactPoint: '"localhost"'
+    port: 9042
+    maxSchemaAgreementWaitSeconds: 20
+    ssl: true
+ rabbitmq.uri: amqp://localhost:5672

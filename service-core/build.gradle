@@ -1,0 +1,59 @@
+plugins {
+    id("groovy")
+    id("com.github.johnrengelman.shadow") version "6.1.0"
+    id("io.micronaut.application") version "1.2.0"
+}
+
+version = "0.1"
+group = "ng.torque"
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+micronaut {
+    runtime("netty")
+    testRuntime("spock2")
+    processing {
+        incremental(true)
+        annotations("ng.torque.*")
+    }
+}
+
+dependencies {
+    compileOnly("io.micronaut.data:micronaut-data-processor")
+    compileOnly("io.micronaut.openapi:micronaut-openapi")
+    implementation("io.micronaut:micronaut-validation")
+    implementation("io.micronaut.groovy:micronaut-runtime-groovy")
+    implementation("javax.annotation:javax.annotation-api")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.swagger.core.v3:swagger-annotations")
+    implementation("io.micronaut:micronaut-management")
+    implementation("io.micronaut.liquibase:micronaut-liquibase")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+    implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
+    implementation("io.micronaut.groovy:micronaut-hibernate-gorm")
+    implementation("io.micronaut.cassandra:micronaut-cassandra")
+    implementation("io.micronaut.elasticsearch:micronaut-elasticsearch")
+    implementation("io.micronaut.graphql:micronaut-graphql")
+    implementation("io.micronaut.redis:micronaut-redis-lettuce")
+    implementation("io.micronaut.rabbitmq:micronaut-rabbitmq")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("com.h2database:h2")
+    runtimeOnly("org.apache.tomcat:tomcat-jdbc")
+}
+
+
+application {
+    mainClass.set("ng.torque.Application")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
+}
+
+
+

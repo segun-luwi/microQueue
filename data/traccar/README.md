@@ -1,0 +1,2 @@
+
+# Details about stured data

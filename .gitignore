@@ -2,6 +2,7 @@
 data/postgres/*
 data/rabbitmq/*
 data/traccar/logs/*
+data/cassandra/*
 
 # OS metadata files
 desktop.ini

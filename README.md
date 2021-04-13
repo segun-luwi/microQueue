@@ -9,7 +9,7 @@ git clone https://github.com/gpproton/microQueue.git && \
 git checkout dev && \
 cd microQueue && \
 chmod +x ./composer.sh && ./composer.sh && \
-composer.phar install  -d ./php-sample/ && \
+./composer.phar install  -d ./php-sample/ && \
 docker-compose up -d && \
 sleep 15 && \
 tail -f ./data/traccar/logs/tracker-server.log

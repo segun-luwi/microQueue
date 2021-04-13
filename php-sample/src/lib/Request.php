@@ -13,7 +13,11 @@ class Request
   public function raw(): array
   {
     try{
-      return json_decode(file_get_contents('php://input'));
+      $data = file_get_contents('php://input');
+      if($this->isJson($data)) {
+        return json_decode($data, true);
+      }
+      return array();
     } catch (\Exception $exception) {
       return array();
     }
@@ -28,5 +32,9 @@ class Request
       return array();
     }
 
+  }
+
+  private function isJson($string) {
+    return (is_null(json_decode($string, TRUE))) ? FALSE : TRUE;
   }
 }

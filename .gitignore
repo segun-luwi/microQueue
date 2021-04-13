@@ -49,3 +49,4 @@ php-sample/.idea/modules.xml
 php-sample/.idea/misc.xml
 php-sample/.idea/codeStyles/Project.xml
 php-sample/.idea/codeStyles/codeStyleConfig.xml
+php-sample/composer.lock

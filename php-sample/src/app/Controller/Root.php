@@ -13,7 +13,7 @@ class Root extends AbstractController
 {
   protected function content()
   {
-    var_dump($this->config['rabbitmq']);
-//    $this->response->send(["Index"]);
+//    var_dump($this->config['rabbitmq']);
+    $this->response->send(["Index"]);
   }
 }

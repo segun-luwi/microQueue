@@ -4,8 +4,6 @@ namespace Lib;
 
 defined('APP_ROOT') or exit('No direct script access allowed');
 
-use Lib\Request;
-use Lib\Response;
 use ReflectionClass;
 
 /**

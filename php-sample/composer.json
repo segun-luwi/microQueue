@@ -1,0 +1,14 @@
+{
+    "name": "gpproton/traccar-queue",
+    "description": "A sample traccar forwarder queue.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bit OverloaDER",
+            "email": "me@godwin.dev"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

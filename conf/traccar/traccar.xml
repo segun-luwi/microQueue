@@ -25,9 +25,9 @@
     <!-- Forwarding options -->
     <entry key='forward.enable'>true</entry>
     <entry key='forward.json'>true</entry>
-    <entry key='forward.url'>http://service-php-sample/</entry>
+    <entry key='forward.url'>http://service-php-sample/?state-type=Publish</entry>
     <entry key='event.forward.enable'>true</entry>
-    <entry key='event.forward.url'>http://service-php-sample/</entry>
+    <entry key='event.forward.url'>http://service-php-sample/?state-type=Publish</entry>
     <entry key='event.forward.header'>Content-Type: application/json; charset=utf-8; X-Traccar-Type: Event</entry>
 
     <!-- TCP/UDP Unstable connection event fix -->

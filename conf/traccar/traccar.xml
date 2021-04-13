@@ -16,11 +16,11 @@
     <entry key='geocoder.type'>ban</entry>
 
     <!-- Data persistence store -->
-    <entry key='database.driver'>org.postgresql.Driver</entry>
+    <!-- <entry key='database.driver'>org.postgresql.Driver</entry>
     <entry key='database.url'>jdbc:postgresql://service-postgres:5432/traccar</entry>
     <entry key='database.user'>postgres</entry>
     <entry key='database.password'>postgres</entry>
-    <entry key='database.maxPoolSize'>50</entry>
+    <entry key='database.maxPoolSize'>50</entry> -->
 
     <!-- Forwarding options -->
     <entry key='forward.enable'>true</entry>

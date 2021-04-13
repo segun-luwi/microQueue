@@ -4,6 +4,8 @@ namespace Lib;
 
 defined('APP_ROOT') or exit('No direct script access allowed');
 
+use PhpAmqpLib\Channel\AMQPChannel;
+use PhpAmqpLib\Connection\AbstractConnection;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -55,10 +57,12 @@ class Queue
       true,
       false
     );
-    return $channel->queue_bind($queue, $this->exchange);
+    $channel->queue_bind($queue, $this->exchange);
+
+    return $channel;
   }
 
-  public function publish($messageBody = "Demo text...", $queue = "msgs")
+  public function publish(string $messageBody = "Demo text...", string $queue = "msgs")
   {
     $channel = $this->getChannel($queue);
     $message = new AMQPMessage($messageBody,
@@ -67,6 +71,7 @@ class Queue
         'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
       )
     );
+
     $channel->basic_publish($message, $this->exchange);
 
     $channel->close();
@@ -78,46 +83,45 @@ class Queue
 
   public function consume($queue = "msgs")
   {
+    $channel = $this->connection->channel();
 
-    function process_message($message)
+    $process_message = function($message)
     {
-      echo "\n--------\n";
       echo $message->body;
-      echo "\n--------\n";
-
       $message->ack();
-
       // Send a message with the string "quit" to cancel the consumer.
       if ($message->body === 'quit') {
         $message->getChannel()->basic_cancel($message->getConsumerTag());
       }
-    }
+    };
 
-    $channel = $this->connection->channel();
-    $channel->basic_consume($queue, $this->consumerTag,
+    $channel->basic_consume(
+      $queue,
+      $this->consumerTag,
       false,
       false,
       false,
       false,
-      'process_message'
+      $process_message
     );
 
-    function shutdown($channel, $connection)
+    $shutdown = function (AMQPChannel $channel, AbstractConnection $connection)
     {
       $channel->close();
-      $connection->close();
-    }
+      try {
+        $connection->close();
+      } catch (\Exception $e) {
+      }
+    };
 
-    register_shutdown_function('shutdown', $channel, $this->connection);
+    register_shutdown_function($shutdown,
+      $channel,
+      $this->connection);
 
 // Loop as long as the channel has callbacks registered
-    while ($channel->is_consuming()) {
-      try {
-        $channel->wait();
-      } catch (\ErrorException $e) {
-      }
-    }
-
+//    while ($channel ->is_consuming()) {
+//      $channel->wait();
+//    }
 
   }
 

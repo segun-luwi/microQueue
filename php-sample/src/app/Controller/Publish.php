@@ -16,7 +16,8 @@ class Publish extends AbstractController
   protected function content()
   {
     $queue = new Queue();
-    $queue->publish(json_encode($this->request->raw()));
-    $this->response->send(["Published successfully.."]);
+    $json_data = $this->request->raw();
+    $queue->publish(json_encode($json_data));
+    $this->response->send($json_data);
   }
 }

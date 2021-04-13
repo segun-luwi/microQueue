@@ -3,14 +3,15 @@
 /**
  * Bootstrap class
  */
+
 namespace App;
 
 defined('APP_ROOT') or exit('No direct script access allowed');
 
-use Lib\Route;
+use Lib\Config;
 use Lib\Request;
 use Lib\Response;
-use Lib\Config;
+use Lib\Route;
 
 /**
  * Class Bootstrap
@@ -33,7 +34,8 @@ class Bootstrap
     $this->response = $response;
   }
 
-  public function Run():Void {
+  public function Run(): void
+  {
     /**
      * Inject config file.
      */

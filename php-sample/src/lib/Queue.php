@@ -107,10 +107,11 @@ class Queue
       $channel->close();
       $connection->close();
     }
+
     register_shutdown_function('shutdown', $channel, $this->connection);
 
 // Loop as long as the channel has callbacks registered
-    while ($channel ->is_consuming()) {
+    while ($channel->is_consuming()) {
       try {
         $channel->wait();
       } catch (\ErrorException $e) {

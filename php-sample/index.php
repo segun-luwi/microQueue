@@ -1,8 +1,15 @@
 <?php
 
-// $rawJson = file_get_contents('php://input');
-// ob_start();
-// var_dump($rawJson . "\n");
+/**
+ * App root
+ */
+define("APP_ROOT", __DIR__);
 
-// file_put_contents('logs.txt', $rawJson.PHP_EOL , FILE_APPEND | LOCK_EX);
-// error_log(ob_get_clean(), 4);
+require_once('vendor/autoload.php');
+
+use App\Bootstrap;
+use Lib\Request;
+use Lib\Response;
+
+$app = new Bootstrap(new Request(), new Response());
+$app->Run();

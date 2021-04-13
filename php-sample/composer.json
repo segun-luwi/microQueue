@@ -10,5 +10,16 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+  "autoload": {
+    "psr-4": {
+      "Lib\\": "src/lib",
+      "App\\": "src/app"
+    }
+  },
+    "require": {
+        "symfony/yaml": "5.x-dev",
+        "hassankhan/config": "dev-develop",
+        "php-amqplib/php-amqplib": "3.0.x-dev",
+      "ext-json": "*"
+    }
 }

@@ -32,12 +32,17 @@ class Queue
 
   private function getConnection(): AMQPStreamConnection
   {
-    return new AMQPStreamConnection($this->config['rabbitmq']['host'],
-      $this->config['rabbitmq']['port'],
-      $this->config['rabbitmq']['username'],
-      $this->config['rabbitmq']['password'],
-      $this->config['rabbitmq']['vhost']
-    );
+    try {
+      return new AMQPStreamConnection($this->config['rabbitmq']['host'],
+        $this->config['rabbitmq']['port'],
+        $this->config['rabbitmq']['username'],
+        $this->config['rabbitmq']['password'],
+        $this->config['rabbitmq']['vhost']
+      );
+    } catch (\Exception $exception) {
+      $response = new Response();
+      $response->send(array("message" => "rabbitMQ error.."));
+    }
   }
 
   private function getChannel($queue = "msgs")
@@ -53,7 +58,7 @@ class Queue
     return $channel->queue_bind($queue, $this->exchange);
   }
 
-  public function publish($queue = "msgs", $messageBody = "Demo text...")
+  public function publish($messageBody = "Demo text...", $queue = "msgs")
   {
     $channel = $this->getChannel($queue);
     $message = new AMQPMessage($messageBody,

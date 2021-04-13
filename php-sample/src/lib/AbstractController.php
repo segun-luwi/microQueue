@@ -1,12 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace Lib;
 
 defined('APP_ROOT') or exit('No direct script access allowed');
-
-use Lib\Config;
-use Lib\Request;
-use Lib\Response;
 
 /**
  * Class AbstractController

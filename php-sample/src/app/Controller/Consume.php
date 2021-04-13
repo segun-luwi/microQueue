@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Lib\AbstractController;
 use Lib\Queue;
 
 defined('APP_ROOT') or exit('No direct script access allowed');
@@ -16,6 +17,6 @@ class Consume extends AbstractController
   {
     $queue = new Queue();
     $queue->consume();
-    $this->response->send(["Consumer"]);
+    $this->response->send(["Consumer is working.."]);
   }
 }

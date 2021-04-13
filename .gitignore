@@ -2,7 +2,51 @@
 data/postgres/*
 data/rabbitmq/*
 data/traccar/logs/*
+data/cassandra/*
 
 # OS metadata files
 desktop.ini
 .DS_Store
+php-sample/vendor/
+
+
+# Created by .ignore support plugin (hsz.mobi)
+### Composer template
+composer.phar
+vendor/
+
+# Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
+# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+# composer.lock
+
+### Laravel template
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Laravel 4 specific
+bootstrap/compiled.php
+app/storage/
+
+# Laravel 5 & Lumen specific
+public/storage
+public/hot
+
+# Laravel 5 & Lumen specific with changed public path
+public_html/storage
+public_html/hot
+
+storage/*.key
+.env
+Homestead.yaml
+Homestead.json
+/.vagrant
+.phpunit.result.cache
+php-sample/.idea/vcs.xml
+php-sample/.idea/php.xml
+php-sample/.idea/php-sample.iml
+php-sample/.idea/modules.xml
+php-sample/.idea/misc.xml
+php-sample/.idea/codeStyles/Project.xml
+php-sample/.idea/codeStyles/codeStyleConfig.xml
+php-sample/composer.lock

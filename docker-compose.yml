@@ -1,28 +1,17 @@
-version: '3'
+version: "3"
 services:
-  service-postgres:
-     image: postgres:9.6.20
-     container_name: postgres
-     restart: unless-stopped
-     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
-     ports:
-      - "5432:5432"
-     environment:
-        - POSTGRES_DB=postgres
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
-  service-cassandra:
-    image: scylladb/scylla:4.3.0
-    container_name: cassandra
-    restart: unless-stopped
-    volumes: 
-      - ./data/cassandra:/var/lib/scylla
-    ports:
-      - "18080:10000"
-      - "18081:9042"
-      - "18082:9160"
-      - "18083:9180"
+  # service-postgres:
+  #   image: postgres:9.6.20
+  #   container_name: postgres
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./data/postgres:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     - POSTGRES_DB=postgres
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
   service-rabbitmq:
     image: rabbitmq:3.8-management
     container_name: rabbitmq
@@ -40,21 +29,21 @@ services:
     container_name: traccar
     restart: unless-stopped
     volumes:
-    - ./data/traccar/logs:/opt/traccar/logs:rw
-    - ./data/traccar/data:/opt/traccar/data:rw
-    - ./data/traccar/media:/opt/traccar/media:rw
-    - ./conf/traccar/traccar.xml:/opt/traccar/conf/traccar.xml:ro
+      - ./data/traccar/logs:/opt/traccar/logs:rw
+      - ./data/traccar/data:/opt/traccar/data:rw
+      - ./data/traccar/media:/opt/traccar/media:rw
+      - ./conf/traccar/traccar.xml:/opt/traccar/conf/traccar.xml:ro
     ports:
-    - "8082:8082"
-    - "5000-5250:5000-5250"
-    - "5000-5250:5000-5250/udp"
-    depends_on:
-       - service-postgres
+      - "8082:8082"
+      - "5000-5250:5000-5250"
+      - "5000-5250:5000-5250/udp"
+    # depends_on:
+    #   - service-postgres
   service-php-sample:
     image: newdeveloper/apache-php-composer:28-05-2020
     container_name: php-sample
     restart: unless-stopped
-    volumes: 
-      - ./php-sample/:/var/www/html:rw
-    ports: 
+    volumes:
+      - ./php-sample/:/var/www/html/public:rw
+    ports:
       - "8083:80"

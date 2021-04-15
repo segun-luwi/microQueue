@@ -50,3 +50,6 @@ php-sample/.idea/misc.xml
 php-sample/.idea/codeStyles/Project.xml
 php-sample/.idea/codeStyles/codeStyleConfig.xml
 php-sample/composer.lock
+data/traccar/data/database.mv.db
+data/traccar/data/database.trace.db
+node-sample/yarn.lock

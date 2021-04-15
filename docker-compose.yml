@@ -37,13 +37,22 @@ services:
       - "8082:8082"
       - "5000-5250:5000-5250"
       - "5000-5250:5000-5250/udp"
+  service-node-sample:
+    image: custom/node-sample
+    container_name: node-sample
+    build:
+      context: ./node-sample/
+      dockerfile: ./Dockerfile
+    env_file: ./.env.sample
+    ports:
+      - "43000:43000"
     # depends_on:
     #   - service-postgres
-  service-php-sample:
-    image: newdeveloper/apache-php-composer:28-05-2020
-    container_name: php-sample
-    restart: unless-stopped
-    volumes:
-      - ./php-sample/:/var/www/html/public:rw
-    ports:
-      - "8083:80"
+  # service-php-sample:
+  #   image: newdeveloper/apache-php-composer:28-05-2020
+  #   container_name: php-sample
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./php-sample/:/var/www/html/public:rw
+  #   ports:
+  #     - "8083:80"

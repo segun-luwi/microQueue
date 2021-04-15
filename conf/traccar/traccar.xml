@@ -30,19 +30,16 @@
 
     <!-- Forwarding options -->
     <entry key='forward.enable'>true</entry>
-    <entry key='forward.header'>
-        content-type: application/json
-        cache-control: no-cache
-    </entry>
     <entry key='forward.json'>true</entry>
     <entry key='forward.url'>http://service-node-sample:43000/</entry>
-    <entry key='event.forward.enable'>true</entry>
-    <entry key='event.forward.header'>
-        content-type: application/json
-        cache-control: no-cache
+    <entry key='forward.header'>
+        content-type: application/json; cache-control: no-cache; charset=utf-8; X-Traccar-Type: Position
     </entry>
+    <entry key='event.forward.enable'>true</entry>
     <entry key='event.forward.url'>http://service-node-sample:43000/</entry>
-    <entry key='event.forward.header'>Content-Type: application/json; charset=utf-8; X-Traccar-Type: Event</entry>
+    <entry key='event.forward.header'>
+        content-type: application/json; cache-control: no-cache; charset=utf-8; X-Traccar-Type: Event
+    </entry>
 
     <!-- TCP/UDP Unstable connection event fix -->
     <entry key='tcp.timeout'>30</entry>

@@ -62,9 +62,9 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    depends_on:
-      service-postgres:
-        condition: service_healthy
+    # depends_on:
+    #   service-postgres:
+    #     condition: service_healthy
   service-node-sample:
     image: custom/node-sample
     container_name: node-sample

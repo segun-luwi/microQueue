@@ -11,19 +11,17 @@ const app = express()
 const port = process.env.NODE_PORT !== null ? process.env.NODE_PORT : 43000
 
 app.use(express.json())
-app.use(bodyParser.text({type: 'text/plain'}))
+app.use(bodyParser.text({type: '*/*'}))
 app.use(express.urlencoded({ extended: true }))
 
 app.all('*', async (req, res, next) => {
-    
+    console.info('HTTP requested started..')
     try {
-        console.info('HTTP requested started..')
-        const output = JSON.parse(req.body)
-        await queue.publish(JSON.stringify(output))
+        await queue.publish(JSON.stringify(req.body))
         console.log('Queue 1 payload..')
         res.header('Content-Type','application/json')
         res.header('Accept','application/json')
-        res.jsonp(output)
+        res.jsonp(req.body)
     } catch (error) {
         res.jsonp({"status": 0, "message": error})
     }

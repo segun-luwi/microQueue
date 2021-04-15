@@ -39,6 +39,7 @@ services:
       - "5000-5250:5000-5250/udp"
   service-node-sample:
     image: custom/node-sample
+    container_name: node-sample
     build:
       context: ./node-sample/
       dockerfile: ./Dockerfile

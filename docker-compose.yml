@@ -35,6 +35,8 @@ services:
       - "8082:8082"
       - "5000-5250:5000-5250"
       - "5000-5250:5000-5250/udp"
+    # depends_on:
+    #   - service-postgres
   service-node-sample:
     image: custom/node-sample
     container_name: node-sample
@@ -44,8 +46,8 @@ services:
     env_file: ./.env.sample
     ports:
       - "43000:43000"
-    # depends_on:
-    #   - service-postgres
+    depends_on:
+      - service-rabbitmq
   # service-php-sample:
   #   image: newdeveloper/apache-php-composer:28-05-2020
   #   container_name: php-sample
@@ -54,3 +56,5 @@ services:
   #     - ./php-sample/:/var/www/html/public:rw
   #   ports:
   #     - "8083:80"
+  #   depends_on:
+  #     - service-rabbitmq

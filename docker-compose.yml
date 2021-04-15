@@ -18,12 +18,10 @@ services:
     restart: unless-stopped
     volumes:
       - ./data/rabbitmq:/var/lib/rabbitmq
+    env_file: ./.env.sample
     ports:
       - "5672:5672"
       - "15672:15672"
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
   service-traccar:
     image: traccar/traccar:4.12-alpine
     container_name: traccar

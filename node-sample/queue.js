@@ -4,7 +4,7 @@ const amqp = require('amqplib')
 module.exports = {
 
     async open() {
-        return amqp.connect(`amqp://${process.env.RABBIT_USER}:${process.env.RABBIT_PASS}@${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`)
+        return amqp.connect(`amqp://${process.env.RABBITMQ_DEFAULT_USER}:${process.env.RABBITMQ_DEFAULT_PASS}@${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`)
     },
 
     async publish(message = "{}") {

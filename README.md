@@ -1,5 +1,7 @@
 # Trcacar Queue
 
+NOTE: this is not a production setup, as more configuration and firewall settings are required are required to get that level of stability.
+
 ## Basic deployment command
 
 Execute only Linux, macOS, or Windows WSL, as there no promise volume mounting will work directly on windows, this environment is intended for a live development for traccar and is far from an actual production development from security and functionality view.

@@ -13,21 +13,30 @@ services:
   #     - POSTGRES_USER=postgres
   #     - POSTGRES_PASSWORD=postgres
   service-rabbitmq:
-    image: rabbitmq:3.8-management
+    image: custom/rabbitmq
     container_name: rabbitmq
     restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: ./rabbitmq/Dockerfile
     volumes:
       - ./data/rabbitmq:/var/lib/rabbitmq
+    env_file: ./.env.sample
     ports:
       - "5672:5672"
       - "15672:15672"
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   service-traccar:
-    image: traccar/traccar:4.12-alpine
+    image: custom/traccar
     container_name: traccar
     restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: ./traccar/Dockerfile
     volumes:
       - ./data/traccar/logs:/opt/traccar/logs:rw
       - ./data/traccar/data:/opt/traccar/data:rw
@@ -37,6 +46,13 @@ services:
       - "8082:8082"
       - "5000-5250:5000-5250"
       - "5000-5250:5000-5250/udp"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    # depends_on:
+    #   - service-postgres
   service-node-sample:
     image: custom/node-sample
     container_name: node-sample
@@ -46,8 +62,13 @@ services:
     env_file: ./.env.sample
     ports:
       - "43000:43000"
-    # depends_on:
-    #   - service-postgres
+    depends_on:
+      service-rabbitmq:
+        condition: service_healthy
+      service-traccar:
+        condition: service_healthy
+    links:
+      - service-rabbitmq
   # service-php-sample:
   #   image: newdeveloper/apache-php-composer:28-05-2020
   #   container_name: php-sample
@@ -56,3 +77,10 @@ services:
   #     - ./php-sample/:/var/www/html/public:rw
   #   ports:
   #     - "8083:80"
+  #   depends_on:
+  #     service-rabbitmq:
+  #       condition: service_healthy
+  #     service-traccar:
+  #       condition: service_healthy
+  #   links:
+  #     - service-rabbitmq

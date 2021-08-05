@@ -1,28 +1,28 @@
 version: "2.4"
 services:
-  # service-postgres:
-  #   image: postgres:9.6.20-alpine
-  #   container_name: postgres
-  #   restart: unless-stopped
-  #   volumes:
-  #     - ./data/postgres:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
-  #   env_file: ./.env.sample
-  #   healthcheck:
-  #     test:
-  #       [
-  #         "CMD",
-  #         "pg_isready",
-  #         "-q",
-  #         "-d",
-  #         "${POSTGRES_DB}",
-  #         "-U",
-  #         "${POSTGRES_USER}",
-  #       ]
-  #     timeout: 45s
-  #     interval: 10s
-  #     retries: 10
+  service-postgres:
+    image: postgres:9.6.20-alpine
+    container_name: postgres
+    restart: unless-stopped
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file: ./.env.sample
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-q",
+          "-d",
+          "${POSTGRES_DB}",
+          "-U",
+          "${POSTGRES_USER}",
+        ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
   service-rabbitmq:
     image: custom/rabbitmq
     container_name: rabbitmq
@@ -65,30 +65,15 @@ services:
     depends_on:
       service-postgres:
         condition: service_healthy
-  service-node-sample:
-    image: custom/node-sample
-    container_name: node-sample
-    build:
-      context: ./node-sample/
-      dockerfile: ./Dockerfile
-    env_file: ./.env.sample
-    ports:
-      - "43000:43000"
-    depends_on:
-      service-rabbitmq:
-        condition: service_healthy
-      service-traccar:
-        condition: service_healthy
-    links:
-      - service-rabbitmq
-  # service-php-sample:
-  #   image: newdeveloper/apache-php-composer:28-05-2020
-  #   container_name: php-sample
-  #   restart: unless-stopped
-  #   volumes:
-  #     - ./php-sample/:/var/www/html/public:rw
+  # service-node-sample:
+  #   image: custom/node-sample
+  #   container_name: node-sample
+  #   build:
+  #     context: ./node-sample/
+  #     dockerfile: ./Dockerfile
+  #   env_file: ./.env.sample
   #   ports:
-  #     - "8083:80"
+  #     - "43000:43000"
   #   depends_on:
   #     service-rabbitmq:
   #       condition: service_healthy
@@ -96,3 +81,18 @@ services:
   #       condition: service_healthy
   #   links:
   #     - service-rabbitmq
+  service-php-sample:
+    image: newdeveloper/apache-php-composer:28-05-2020
+    container_name: php-sample
+    restart: unless-stopped
+    volumes:
+      - ./php-sample/:/var/www/html/public:rw
+    ports:
+      - "8083:80"
+    depends_on:
+      service-rabbitmq:
+        condition: service_healthy
+      service-traccar:
+        condition: service_healthy
+    links:
+      - service-rabbitmq
